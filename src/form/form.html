@@ -1,12 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ajouter une actualités</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Muli:300,400,700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Formulaire d'actualités</title>
   </head>
   <body>
-    <a href="./index.html">Accueil</a>
+    <div class="container">
+      <header>
+        <a class="header-brand" href="./index.html"
+          >Espace locataire Agnes Varda</a
+        >
+        <ul>
+          <li>
+            <a href="./index.html" class="header-nav">Accueil</a>
+          </li>
+          <li>
+            <a href="./form.html" class="header-nav active"
+              >Créer une actualités</a
+            >
+          </li>
+        </ul>
+      </header>
+      <div class="content">
+        <form >
+        <h2 class="title-underlibe">Ajoutez une actualités</h2>
+        <div class="form-group">
+          <label>Auteur</label>
+          <input type="text" name="author" />
+        </div>
+        <div class="form-group">
+          <label>Sujet</label>
+          <input type="text" name="topic" />
+        </div>
+        <div class="form-group">
+          <label>Actualités</label>
+          <textarea name="content"></textarea>
+        </div>
+        <div class="form-btn-container">
+          <button class="btn btn-primary">Sauvegarder</button>
+          <button class="btn btn-secondary">Annuler</button>
+        </div>
+      </div>
+    </form>
+      <footer>© blog</footer>
+    </div>
   </body>
 </html>
