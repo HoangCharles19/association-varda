@@ -58,3 +58,8 @@ footer {
   text-align: center;
   color: white;
 }
+.content {
+  grid-area: content;
+  padding: 20px;
+  background: var(--divider);
+}

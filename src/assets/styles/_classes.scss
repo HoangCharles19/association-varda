@@ -26,3 +26,8 @@
     color: var(--primary);
   }
 }
+.text {
+  &-error {
+    color: var(--error);
+  }
+}
