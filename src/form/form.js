@@ -8,12 +8,12 @@ form.addEventListener("submit", async (event) => {
   event.preventDefault();
   const formData = new FormData(form);
   //  La méthode Object.fromEntries() permet de transformer une liste de paires de clés/valeurs en un objet.
-  const article = Object.fromEntries(formData.entries());
+  const news = Object.fromEntries(formData.entries());
   // Si le formulaire est valide on le met au format JSON
-  if (formIsValid(article)) {
+  if (formIsValid(news)) {
     try {
-      const json = JSON.stringify(article);
-      const response = await fetch("https://restapi.fr/api/article", {
+      const json = JSON.stringify(news);
+      const response = await fetch("https://restapi.fr/api/news", {
         method: "POST",
         body: json,
         headers: { "Content-type": "application/json" },
@@ -27,10 +27,16 @@ form.addEventListener("submit", async (event) => {
   }
 });
 
-const formIsValid = (article) => {
+const formIsValid = (news) => {
   errors = [];
   // si un champs n'est pas rempli
-  if (!article.author || !article.topic || !article.content) {
+  if (
+    !news.author ||
+    !news.photo ||
+    !news.topic ||
+    !news.title ||
+    !news.content
+  ) {
     errors.push("Vous devez remplir tous les champs");
   } else {
     errors = [];

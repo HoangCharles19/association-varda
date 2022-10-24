@@ -2,11 +2,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  .articles-container {
+  .news-container {
     max-width: 800px;
     width: 100%;
     margin: 5rem 0 10rem 0;
-    .article {
+    .news {
       background: white;
       padding: 0 5rem;
       border-radius: 0.3rem;
@@ -25,14 +25,15 @@
         margin-top: 2rem;
         margin-bottom: 0;
       }
-      .article-author {
+      .news-author {
         color: var(--hint);
         margin-bottom: 3rem;
       }
-      .article-content {
+      .news-content {
         max-width: 550px;
+        white-space: pre-line;
       }
-      .article-actions {
+      .news-actions {
         width: 100%;
         display: flex;
         justify-content: flex-end;
