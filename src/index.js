@@ -3,18 +3,18 @@ import "./index.scss";
 
 const containerNews = document.querySelector(".news-container");
 
-const createNews = (actus) => {
-  const newsNodes = actus.map((actu) => {
+const createNews = (actualites) => {
+  const newsNodes = actualites.map((actualite) => {
     const newsNode = document.createElement("div");
     newsNode.classList.add("news");
     newsNode.innerHTML = ` <img
-    src="${actu.photo}"
+    src="${actualite.photo}"
     alt="profile"
   />
-  <h2>${actu.title}</h2>
-  <p class="news-author">${actu.author} - ${actu.topic}</p>
+  <h2>${actualite.title}</h2>
+  <p class="news-author">${actualite.author} - ${actualite.topic}</p>
   <p class="news-content">
-  ${actu.content}
+  ${actualite.content}
   </p>
   <div class="news-actions">
     <button class="btn btn-danger">Supprimer</button>
@@ -29,8 +29,8 @@ const createNews = (actus) => {
 const fetchArticles = async () => {
   try {
     const response = await fetch("https://restapi.fr/api/news");
-    const news = await response.json();
-    createNews(news);
+    const actualites = await response.json();
+    createNews(actualites);
   } catch (e) {
     console.error("e:", e);
   }
