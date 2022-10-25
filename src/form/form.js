@@ -3,7 +3,14 @@ import "../assets/styles/styles.scss";
 
 const form = document.querySelector("form");
 const errorsNode = document.querySelector("#errors");
+const cancelButton = document.querySelector(".btn-secondary");
+console.log(cancelButton);
 let errors = [];
+
+cancelButton.addEventListener("click", () => {
+  window.location.assign("./index.html");
+});
+
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
   const formData = new FormData(form);
@@ -18,8 +25,10 @@ form.addEventListener("submit", async (event) => {
         body: json,
         headers: { "Content-type": "application/json" },
       });
-
       const body = await response.json();
+      if (response.status < 300) {
+        window.location.assign("./index.html");
+      }
       console.log(body);
     } catch (e) {
       console.error("err:", e);

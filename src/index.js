@@ -12,7 +12,14 @@ const createNews = (actualites) => {
     alt="profile"
   />
   <h2>${actualite.title}</h2>
-  <p class="news-author">${actualite.author} - ${actualite.topic}</p>
+  <p class="news-author">${actualite.author} - ${new Date(
+      actualite.createdAt
+    ).toLocaleDateString("fr-FR", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })}</p>
   <p class="news-content">
   ${actualite.content}
   </p>
@@ -23,6 +30,7 @@ const createNews = (actualites) => {
   </div>`;
     return newsNode;
   });
+
   containerNews.innerHTML = "";
   containerNews.append(...newsNodes);
 
