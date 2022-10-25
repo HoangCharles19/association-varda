@@ -4,12 +4,40 @@ import "../assets/styles/styles.scss";
 const form = document.querySelector("form");
 const errorsNode = document.querySelector("#errors");
 const cancelButton = document.querySelector(".btn-secondary");
-console.log(cancelButton);
+
+let actualiteId;
 let errors = [];
 
 cancelButton.addEventListener("click", () => {
   window.location.assign("./index.html");
 });
+const initForm = async () => {
+  const params = new URL(window.location.href);
+  actualiteId = params.searchParams.get("id");
+
+  if (actualiteId) {
+    const response = await fetch(`https://restapi.fr/api/news/${actualiteId}`);
+    if (response.status < 300) {
+      const news = await response.json();
+      fillform(news);
+    }
+  }
+};
+initForm();
+
+const fillform = async (news) => {
+  const author = document.querySelector('input[name="author"]');
+  const photo = document.querySelector('input[name="photo"]');
+  const topic = document.querySelector('input[name="topic"]');
+  const title = document.querySelector('input[name="title"]');
+  const content = document.querySelector("textarea");
+
+  author.value = news.author || "";
+  photo.value = news.photo || "";
+  topic.value = news.topic || "";
+  title.value = news.title || "";
+  content.value = news.content || "";
+};
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -20,11 +48,21 @@ form.addEventListener("submit", async (event) => {
   if (formIsValid(news)) {
     try {
       const json = JSON.stringify(news);
-      const response = await fetch("https://restapi.fr/api/news", {
-        method: "POST",
-        body: json,
-        headers: { "Content-type": "application/json" },
-      });
+      let response;
+      if (actualiteId) {
+        response = await fetch(`https://restapi.fr/api/news/${actualiteId}`, {
+          method: "PATCH",
+          body: json,
+          headers: { "Content-type": "application/json" },
+        });
+      } else {
+        response = await fetch("https://restapi.fr/api/news", {
+          method: "POST",
+          body: json,
+          headers: { "Content-type": "application/json" },
+        });
+      }
+
       const body = await response.json();
       if (response.status < 300) {
         window.location.assign("./index.html");

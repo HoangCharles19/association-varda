@@ -26,7 +26,7 @@ const createNews = (actualites) => {
   <div class="news-actions">
     <button class="btn btn-danger" data-id="${actualite._id}"
     >Supprimer</button>
-    <button class="btn btn-primary">Modifier</button>
+    <button class="btn btn-primary" data-id="${actualite._id}">Modifier</button>
   </div>`;
     return newsNode;
   });
@@ -34,21 +34,31 @@ const createNews = (actualites) => {
   containerNews.innerHTML = "";
   containerNews.append(...newsNodes);
 
-  const deleteButtons = document.querySelectorAll(".btn-danger");
+  const deleteButtons = containerNews.querySelectorAll(".btn-danger");
+  const editButtons = containerNews.querySelectorAll(".btn-primary");
+
   deleteButtons.forEach((button) => {
     button.addEventListener("click", async (event) => {
       try {
         const target = event.target;
         const newsId = target.dataset.id;
+        console.log(newsId);
         const response = await fetch(`https://restapi.fr/api/news/${newsId}`, {
           method: "DELETE",
         });
         const body = await response.json();
-        console.log(body);
+
         fetchArticles();
       } catch {
         console.error("error:", e);
       }
+    });
+  });
+  editButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      const target = event.target;
+      const newsId = target.dataset.id;
+      window.location.assign(`./form.html?id=${newsId}`);
     });
   });
 };
