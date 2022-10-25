@@ -17,13 +17,32 @@ const createNews = (actualites) => {
   ${actualite.content}
   </p>
   <div class="news-actions">
-    <button class="btn btn-danger">Supprimer</button>
+    <button class="btn btn-danger" data-id="${actualite._id}"
+    >Supprimer</button>
     <button class="btn btn-primary">Modifier</button>
   </div>`;
     return newsNode;
   });
   containerNews.innerHTML = "";
   containerNews.append(...newsNodes);
+
+  const deleteButtons = document.querySelectorAll(".btn-danger");
+  deleteButtons.forEach((button) => {
+    button.addEventListener("click", async (event) => {
+      try {
+        const target = event.target;
+        const newsId = target.dataset.id;
+        const response = await fetch(`https://restapi.fr/api/news/${newsId}`, {
+          method: "DELETE",
+        });
+        const body = await response.json();
+        console.log(body);
+        fetchArticles();
+      } catch {
+        console.error("error:", e);
+      }
+    });
+  });
 };
 
 const fetchArticles = async () => {
