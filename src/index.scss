@@ -1,9 +1,39 @@
 @import "./assets/styles/media-queries";
 
 .content {
+  background: var(--divider);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  padding-top: 5rem;
+  .sidebar {
+    flex: 0 0 25rem;
+    padding: 0 2rem 2rem 2rem;
+    .topic {
+      padding: 2rem;
+      background: white;
+      border-radius: 0.3rem;
+      box-shadow: var(--box-shadow);
+      li {
+        margin: 1rem;
+        transition: color 0.2s;
+        cursor: pointer;
+        &:hover {
+          color: var(--primary);
+          strong {
+            color: var(--primary);
+          }
+        }
+      }
+      .active {
+        color: var(--primary);
+        font-weight: 700;
+        strong {
+          color: var(--primary);
+        }
+      }
+    }
+  }
   .news-container {
     max-width: 800px;
     width: 100%;
