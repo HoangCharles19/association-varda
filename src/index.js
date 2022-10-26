@@ -1,5 +1,6 @@
 import "./assets/styles/styles.scss";
 import "./index.scss";
+import { openModal } from "./assets/javascripts/modal.js";
 
 const containerNews = document.querySelector(".news-container");
 const containerTopics = document.querySelector(".topic");
@@ -58,18 +59,26 @@ const createNews = () => {
 
   deleteButtons.forEach((button) => {
     button.addEventListener("click", async (event) => {
-      try {
-        const target = event.target;
-        const newsId = target.dataset.id;
-        console.log(newsId);
-        const response = await fetch(`https://restapi.fr/api/news/${newsId}`, {
-          method: "DELETE",
-        });
-        const body = await response.json();
+      const result = await openModal(
+        "Voulez vous vraiment supprimer cette actualités"
+      );
+      if (result === true) {
+        try {
+          const target = event.target;
+          const newsId = target.dataset.id;
+          console.log(newsId);
+          const response = await fetch(
+            `https://restapi.fr/api/news/${newsId}`,
+            {
+              method: "DELETE",
+            }
+          );
+          const body = await response.json();
 
-        fetchArticles();
-      } catch {
-        console.error("error:", e);
+          fetchArticles();
+        } catch {
+          console.error("error:", e);
+        }
       }
     });
   });
