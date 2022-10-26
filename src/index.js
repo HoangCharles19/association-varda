@@ -3,9 +3,16 @@ import "./index.scss";
 
 const containerNews = document.querySelector(".news-container");
 const containerTopics = document.querySelector(".topic");
+const containerSelectElement = document.querySelector("select");
 
+let sortBy = "desc";
 let actualites;
 let filter;
+
+containerSelectElement.addEventListener("change", (event) => {
+  sortBy = containerSelectElement.value;
+  fetchArticles();
+});
 
 const createNews = () => {
   const newsNodes = actualites
@@ -79,6 +86,9 @@ const displayMenuTopics = (topicsArr) => {
   const liElements = topicsArr.map((topicArr) => {
     const li = document.createElement("li");
     li.innerHTML = `  <li>${topicArr[0]} (<strong>${topicArr[1]}</strong>)</li>`;
+    if (filter === topicArr[0]) {
+      li.classList.add("active");
+    }
     li.addEventListener("click", () => {
       if (filter === topicArr[0]) {
         filter = null;
@@ -119,7 +129,9 @@ const createMenuTopics = () => {
 
 const fetchArticles = async () => {
   try {
-    const response = await fetch("https://restapi.fr/api/news");
+    const response = await fetch(
+      `https://restapi.fr/api/news?sort=createdAt:${sortBy}`
+    );
     actualites = await response.json();
     createNews();
     createMenuTopics();
